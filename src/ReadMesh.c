@@ -12,6 +12,10 @@ void ReadMesh(MESH *mesh){
    printf("Reading PLOT3D mesh file from grid.0 ...\n");
 
    fpt = fopen("grid.0", "r");
+   if(fpt==NULL){
+      printf("ReadMesh: Could not open grid.0\n");
+      exit(0);
+   }
 
    fscanf(fpt, "%d", &mesh->nblk);
    printf("Number of blocks = %d\n", mesh->nblk);
