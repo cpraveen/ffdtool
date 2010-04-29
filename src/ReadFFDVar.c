@@ -1,3 +1,4 @@
+/* Read FFD variables from file */
 #include <stdio.h>
 #include <stdlib.h>
 #include "ffd.h"

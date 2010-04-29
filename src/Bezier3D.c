@@ -1,3 +1,4 @@
+/* Compute node movement using Bezier volume */
 #include <assert.h>
 #include "ffd.h"
 #include "decl.h"

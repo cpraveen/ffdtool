@@ -1,3 +1,4 @@
+/* For a given point, find its FFD coordinates */
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>

@@ -1,3 +1,4 @@
+/* Write FFD box into file for visualization in plot3d format */
 #include <stdio.h>
 #include <stdlib.h>
 #include "ffd.h"

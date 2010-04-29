@@ -1,3 +1,4 @@
+/* Finds min/max range of FFD coordinates */
 #include <stdio.h>
 #include <stdlib.h>
 #include "ffd.h"

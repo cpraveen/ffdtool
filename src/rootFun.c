@@ -1,3 +1,6 @@
+/* Mapping from local FFD coordinates (xi,eta,zeta) to Cartesian coordinates 
+ * (xp,yp,zp). Given Cartesian coordinates, we find local coordinates by finding
+ * zeroes of this rootFun. */
 #include "type.h"
 #include "decl.h"
 

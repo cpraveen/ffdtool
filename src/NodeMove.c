@@ -1,3 +1,5 @@
+/* Find node movement by calling appropriate parameterization. Also applies 
+ * cutoff to the movement. */
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>

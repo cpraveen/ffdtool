@@ -1,4 +1,6 @@
-/* We assume that the four vertices of facet lie exactly on the same plane */
+/* Find if point is inside FFD box. If yes, it finds the cell in which it lies.
+   We assume that the four vertices of each facet lie exactly on the same
+   plane */
 #include "type.h"
 #include "ffd.h"
 #include "decl.h"

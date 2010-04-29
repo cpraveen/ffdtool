@@ -1,3 +1,4 @@
+/* Jacobian of rootFun required for Newton-Raphson method */
 #include "type.h"
 #include "decl.h"
 
