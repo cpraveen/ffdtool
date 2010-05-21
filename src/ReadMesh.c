@@ -30,7 +30,7 @@ void ReadMesh(MESH *mesh){
       printf("%d %d %d %d\n", n+1, mesh->idim[n], mesh->jdim[n], mesh->kdim[n]);
       mesh->np += mesh->idim[n] * mesh->jdim[n] * mesh->kdim[n];
    }
-
+   printf("Total number of mesh points = %d\n", mesh->np);
    mesh->x = (REAL*)calloc(mesh->np, sizeof(REAL));
    mesh->y = (REAL*)calloc(mesh->np, sizeof(REAL));
    mesh->z = (REAL*)calloc(mesh->np, sizeof(REAL));

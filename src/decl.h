@@ -10,15 +10,20 @@
 
 void ReadMesh(MESH*);
 void WriteMesh(MESH*);
-void ReadFFD(FFD*);
+void ReadFFD(FFD*, TWIST*);
 void WriteFFDBox(FFD*);
 void CheckFFDBox(FFD_BOX*);
-void ReadFFDVar(FFD*);
+void ReadFFDVar(FFD*, TWIST*);
+REAL* rvector(UINT);
 REAL** RealArray2(UINT, UINT);
 void DelRealArray2(UINT nx, REAL**);
+void WriteFFDBox_vtk(FFD*, TWIST*);
 REAL*** RealArray3(UINT, UINT, UINT);
+REAL* RotAxis(REAL*, REAL*, REAL*, REAL);
+REAL* MatMul(REAL*, REAL**, UINT, UINT);
 void CountFFDVar(FFD*);
 void DeformMesh(MESH*, FFD*);
+void WingTwist(MESH*, TWIST*);
 UINT IsInside(REAL, REAL, REAL, FFD_BOX*, UINT*, UINT*, UINT*);
 void MinMaxRangeFFD(FFD_BOX*);
 void FFDCoord(REAL, REAL, REAL, FFD_BOX*, UINT, UINT, UINT, REAL*);

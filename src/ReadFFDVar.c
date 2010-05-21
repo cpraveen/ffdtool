@@ -3,8 +3,9 @@
 #include <stdlib.h>
 #include "ffd.h"
 #include "decl.h"
+#include <math.h>
 
-void ReadFFDVar(FFD *ffd){
+void ReadFFDVar(FFD *ffd, TWIST *twist){
    FILE *fpt;
    UINT i, j, k;
 
@@ -37,6 +38,14 @@ void ReadFFDVar(FFD *ffd){
                                            ffd->var.Y[i][j][k],
                                            ffd->var.Z[i][j][k]);
          }
+   printf("Reading twist variables:\n");
+
+   fscanf(fpt,"%lf",&twist->theta0);
+   fscanf(fpt,"%lf",&twist->theta1);
+   printf("Coefficients of Quadratic Variation of Twist:\n Theta0=%lf,\nTheta1=%lf",twist->theta0,twist->theta1);
+   twist->theta0 = twist->theta0*M_PI/180.0;
+   twist->theta1 = twist->theta1*M_PI/180.0;
+
    fclose(fpt);
    printf("Finished reading file ffd.dat\n");
 }
