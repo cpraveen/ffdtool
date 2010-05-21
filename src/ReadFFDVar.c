@@ -42,7 +42,10 @@ void ReadFFDVar(FFD *ffd, TWIST *twist){
 
    fscanf(fpt,"%lf",&twist->theta0);
    fscanf(fpt,"%lf",&twist->theta1);
-   printf("Coefficients of Quadratic Variation of Twist:\n Theta0=%lf,\nTheta1=%lf",twist->theta0,twist->theta1);
+   printf("Coefficients of Linear Variation of Twist:\n");
+   printf("  Theta0 = %lf\n",twist->theta0);
+   printf("  Theta1 = %lf\n",twist->theta1);
+   //convert from degrees to radians
    twist->theta0 = twist->theta0*M_PI/180.0;
    twist->theta1 = twist->theta1*M_PI/180.0;
 
