@@ -24,6 +24,7 @@ REAL* MatMul(REAL*, REAL**, UINT, UINT);
 void CountFFDVar(FFD*);
 void DeformMesh(MESH*, FFD*);
 void WingTwist(MESH*, TWIST*);
+REAL distToPlane(REAL *axis, REAL *point, REAL *p);
 UINT IsInside(REAL, REAL, REAL, FFD_BOX*, UINT*, UINT*, UINT*);
 void MinMaxRangeFFD(FFD_BOX*);
 void FFDCoord(REAL, REAL, REAL, FFD_BOX*, UINT, UINT, UINT, REAL*);
