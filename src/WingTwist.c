@@ -38,14 +38,14 @@ void WingTwist(MESH *mesh, TWIST *twist){
         length = t1*twist->wing_len;
 
         // calculation of displacement after rotation
-        if(length<=twist->wing_len){
+        if(t1 <= 1.0){
                 for(j=0;j<=2;j++)
                     point[j] = twist->x1[j] + t*(twist->x2[j]-twist->x1[j]);
                 theta = twist->theta0 * (1.0 - t) + twist->theta1 * t;
                 point1 = RotAxis(point,twist->n,a,theta);
             }
 
-        else if(length>twist->wing_len){
+        else{
                 for(j=0;j<=2;j++)
                     point[j] = twist->x2[j] + 
                                (t1-1.0)*twist->n[j]*(length-twist->wing_len);
