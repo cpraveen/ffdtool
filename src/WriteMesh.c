@@ -35,23 +35,19 @@ void WriteMesh(MESH *mesh){
       for(k=0; k<mesh->kdim[n]; k++)
          for(j=0; j<mesh->jdim[n]; j++)
             for(i=0; i<mesh->idim[n]; i++)
-               fprintf(fpt, "%lf ", mesh->x[npx++]);
-
-      fprintf(fpt, "\n");
+               fprintf(fpt, "%24.14e\n", mesh->x[npx++]);
 
       //write y coordinates
       for(k=0; k<mesh->kdim[n]; k++)
          for(j=0; j<mesh->jdim[n]; j++)
             for(i=0; i<mesh->idim[n]; i++)
-               fprintf(fpt, "%lf ", mesh->y[npy++]);
-
-      fprintf(fpt, "\n");
+               fprintf(fpt, "%24.14e\n", mesh->y[npy++]);
 
       //write z coordinates
       for(k=0; k<mesh->kdim[n]; k++)
          for(j=0; j<mesh->jdim[n]; j++)
             for(i=0; i<mesh->idim[n]; i++)
-               fprintf(fpt, "%lf ", mesh->z[npz++]);
+               fprintf(fpt, "%24.14e\n", mesh->z[npz++]);
    }
    fclose(fpt);
 
