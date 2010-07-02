@@ -35,7 +35,7 @@ int main(){
    // Apply FFD deformation to mesh
    DeformMesh(&mesh, &ffd);
 
-   if(strcmp(twist.exis,"yes")==0){
+   if(strcmp(twist.exist,"yes")==0){
        //Apply Wing Twist
        WingTwist(&mesh, &twist);
    }

@@ -1,9 +1,10 @@
 /* Read FFD variables from file */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <math.h>
 #include "ffd.h"
 #include "decl.h"
-#include <math.h>
 
 void ReadFFDVar(FFD *ffd, TWIST *twist){
    FILE *fpt;
@@ -38,16 +39,18 @@ void ReadFFDVar(FFD *ffd, TWIST *twist){
                                            ffd->var.Y[i][j][k],
                                            ffd->var.Z[i][j][k]);
          }
-   printf("Reading twist variables:\n");
+   if(strcmp(twist->exist,"yes")==0){
+      printf("Reading twist variables:\n");
 
-   fscanf(fpt,"%lf",&twist->theta0);
-   fscanf(fpt,"%lf",&twist->theta1);
-   printf("Coefficients of Linear Variation of Twist:\n");
-   printf("  Theta0 = %lf\n",twist->theta0);
-   printf("  Theta1 = %lf\n",twist->theta1);
-   //convert from degrees to radians
-   twist->theta0 = twist->theta0*M_PI/180.0;
-   twist->theta1 = twist->theta1*M_PI/180.0;
+      fscanf(fpt,"%lf",&twist->theta0);
+      fscanf(fpt,"%lf",&twist->theta1);
+      printf("Coefficients of Linear Variation of Twist:\n");
+      printf("  Theta0 = %f deg.\n",twist->theta0);
+      printf("  Theta1 = %f deg.\n",twist->theta1);
+      //convert from degrees to radians
+      twist->theta0 = twist->theta0*M_PI/180.0;
+      twist->theta1 = twist->theta1*M_PI/180.0;
+   }
 
    fclose(fpt);
    printf("Finished reading file ffd.dat\n");
