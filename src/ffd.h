@@ -49,7 +49,6 @@ typedef struct twist{
    UINT    num_sect;
    REAL    n[3];
    REAL    x1[3],x2[3],x3[3];
-   REAL    wing_len;
    REAL    theta0, theta1, theta2;
    char    exist[24];    
 } TWIST; 

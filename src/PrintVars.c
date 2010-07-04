@@ -1,6 +1,7 @@
 /* Count number of FFD variables which have non-zero variation */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "ffd.h"
 #include "decl.h"
 

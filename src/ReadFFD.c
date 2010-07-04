@@ -106,8 +106,6 @@ void ReadFFD(FFD *ffd, TWIST *twist){
    //Read Twist parameters
    fscanf(fpt,"%s",twist->exist);
    if(strcmp(twist->exist,"yes")==0){
-       fscanf(fpt,"%lf",&twist->wing_len);
-       printf("Length of the wing = %lf\n",twist->wing_len);
    
        fscanf(fpt,"%lf%lf%lf",&twist->n[0],&twist->n[1],&twist->n[2]);
        printf("Axis of Wing Twist, n : (%lf, %lf, %lf)\n",
