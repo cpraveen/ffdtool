@@ -22,6 +22,7 @@ REAL*** RealArray3(UINT, UINT, UINT);
 REAL* RotAxis(REAL*, REAL*, REAL*, REAL);
 REAL* MatMul(REAL*, REAL**, UINT, UINT);
 void CountFFDVar(FFD*);
+void PrintVars(FFD *ffd, TWIST *twist);
 void DeformMesh(MESH*, FFD*);
 void WingTwist(MESH*, TWIST*);
 REAL distToPlane(REAL *axis, REAL *point, REAL *p);

@@ -1,9 +1,10 @@
+#include <stdlib.h>
 #include <string.h>
 #include "mesh.h"
 #include "ffd.h"
 #include "decl.h"
 
-int main(){
+int main(int argc, char *argv[]){
    MESH mesh;
    FFD ffd; 
    TWIST twist;
@@ -28,6 +29,12 @@ int main(){
 
    // Count number of non-zero FFD variables
    CountFFDVar(&ffd);
+
+   // Variable list requested
+   if(argc==2 && strcmp(argv[1],"varlist")==0){
+      PrintVars(&ffd, &twist);
+      exit(0);
+   }
 
    // Read FFD variables from file
    ReadFFDVar(&ffd, &twist);
