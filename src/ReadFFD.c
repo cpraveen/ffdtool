@@ -8,8 +8,8 @@
 
 void ReadFFD(FFD *ffd, TWIST *twist){
    FILE *fpt;
-   UINT i, j, k, ii, jj, kk;
-   char type[48];
+   void ReadFFDParam(FILE*, FFD*);
+   void ReadTwistParam(FILE*, TWIST*);
 
    printf("Reading ffd file ffd.in ...\n");
    fpt = fopen("ffd.in", "r");
@@ -17,6 +17,34 @@ void ReadFFD(FFD *ffd, TWIST *twist){
       printf("ERROR: Could not open ffd.in file\n");
       exit(0);
    }
+
+   // Read FFD definition
+   fscanf(fpt, "%s", ffd->exist);
+   if(strcmp(ffd->exist,"yes")==0){
+      ReadFFDParam(fpt, ffd);
+   }else{
+      printf("No FFD variables present\n");
+   }
+
+   //Read Twist parameters
+   fscanf(fpt,"%s",twist->exist);
+   if(strcmp(twist->exist,"yes")==0){
+      ReadTwistParam(fpt, twist);
+   }else{
+      printf("No twist variables present\n");
+   }
+
+   fclose(fpt);
+   printf("Finished reading ffd file ffd.in\n");
+
+}
+
+//-------------------------------------------------------------------------------
+// Read FFD definition
+//-------------------------------------------------------------------------------
+void ReadFFDParam(FILE *fpt, FFD *ffd){
+   UINT i, j, k, ii, jj, kk;
+   char type[48];
 
    fscanf(fpt, "%s", type);
    printf("Type of parameterization = %s\n", type);
@@ -103,50 +131,43 @@ void ReadFFD(FFD *ffd, TWIST *twist){
             assert(i==ii && j==jj && k==kk);
          }
 
-   //Read Twist parameters
-   fscanf(fpt,"%s",twist->exist);
-   if(strcmp(twist->exist,"yes")==0){
-   
-       fscanf(fpt,"%lf%lf%lf",&twist->n[0],&twist->n[1],&twist->n[2]);
-       printf("Axis of Wing Twist, n : (%lf, %lf, %lf)\n",
-              twist->n[0],twist->n[1],twist->n[2]);
+}
 
-       fscanf(fpt,"%d",&twist->deg);
-       printf("Degree of spanwise variation of Wing Twist: %d\n",twist->deg);    
+//-------------------------------------------------------------------------------
+// Read twist parameterization definition
+//-------------------------------------------------------------------------------
+void ReadTwistParam(FILE *fpt, TWIST *twist){
 
-       fscanf(fpt,"%d",&twist->num_sect);
-       printf("Number of spanwise sections of Wing = %d\n",twist->num_sect);
-       if(twist->num_sect==1){
-           fscanf(fpt,"%lf%lf%lf",&twist->x1[0],&twist->x1[1],&twist->x1[2]);
-           printf("Center of the wing root : (%lf, %lf, %lf)\n",
-                  twist->x1[0],twist->x1[1],twist->x1[2]);
-           fscanf(fpt,"%lf%lf%lf",&twist->x2[0],&twist->x2[1],&twist->x2[2]);
-           printf("Center of last Crossection of the wing: (%lf, %lf, %lf)\n",
-                  twist->x2[0],twist->x2[1],twist->x2[2]);
-       } 
-       else if(twist->num_sect==2){    
-           printf("Twist for num_sect=2 not implemented\n");
-           exit(0);
-           fscanf(fpt,"%lf%lf%lf",&twist->x1[0],&twist->x1[1],&twist->x1[2]);
-           printf("Center of the wing root : (%lf, %lf, %lf)\n",
-                  twist->x1[0],twist->x1[1],twist->x1[2]);
-           fscanf(fpt,"%lf%lf%lf",&twist->x2[0],&twist->x2[1],&twist->x2[2]);
-           printf("Center of Middle section of the wing: (%lf, %lf, %lf)\n",
-                  twist->x2[0],twist->x2[1],twist->x2[2]);
-           fscanf(fpt,"%lf%lf%lf",&twist->x3[0],&twist->x3[1],&twist->x3[2]);
-           printf("Center of last Crossection of the wing: (%lf, %lf, %lf)\n",
-                  twist->x3[0],twist->x3[1],twist->x3[2]);
-       }       
-   }
-   else if(strcmp(twist->exist,"no")==0)
-      printf("No twist variable\n");
-   else{
-      printf("Unknown twist option\n");
-      exit(0);
-   }
+   fscanf(fpt,"%lf%lf%lf",&twist->n[0],&twist->n[1],&twist->n[2]);
+   printf("Axis of Wing Twist, n : (%lf, %lf, %lf)\n",
+          twist->n[0],twist->n[1],twist->n[2]);
+
+   fscanf(fpt,"%d",&twist->deg);
+   printf("Degree of spanwise variation of Wing Twist: %d\n",
+          twist->deg);    
+
+   fscanf(fpt,"%d",&twist->num_sect);
+   printf("Number of spanwise sections of Wing = %d\n",twist->num_sect);
+   if(twist->num_sect==1){
+       fscanf(fpt,"%lf%lf%lf",&twist->x1[0],&twist->x1[1],&twist->x1[2]);
+       printf("Center of the wing root : (%lf, %lf, %lf)\n",
+              twist->x1[0],twist->x1[1],twist->x1[2]);
+       fscanf(fpt,"%lf%lf%lf",&twist->x2[0],&twist->x2[1],&twist->x2[2]);
+       printf("Center of last Crossection of the wing: (%lf, %lf, %lf)\n",
+              twist->x2[0],twist->x2[1],twist->x2[2]);
+   } 
+   else if(twist->num_sect==2){    
+       printf("Twist for num_sect=2 not implemented\n");
+       exit(0);
+       fscanf(fpt,"%lf%lf%lf",&twist->x1[0],&twist->x1[1],&twist->x1[2]);
+       printf("Center of the wing root : (%lf, %lf, %lf)\n",
+              twist->x1[0],twist->x1[1],twist->x1[2]);
+       fscanf(fpt,"%lf%lf%lf",&twist->x2[0],&twist->x2[1],&twist->x2[2]);
+       printf("Center of Middle section of the wing: (%lf, %lf, %lf)\n",
+              twist->x2[0],twist->x2[1],twist->x2[2]);
+       fscanf(fpt,"%lf%lf%lf",&twist->x3[0],&twist->x3[1],&twist->x3[2]);
+       printf("Center of last Crossection of the wing: (%lf, %lf, %lf)\n",
+              twist->x3[0],twist->x3[1],twist->x3[2]);
+   }       
               
-
-    
-   fclose(fpt);
-   printf("Finished reading ffd file ffd.in\n");
 }

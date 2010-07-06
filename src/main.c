@@ -15,20 +15,23 @@ int main(int argc, char *argv[]){
    // Read shape parameterization
    ReadFFD(&ffd, &twist);
 
-   // Find min/max range of FFD variables
-   MinMaxRangeFFD(&ffd.box);
+   if(strcmp(ffd.exist,"yes")==0){
 
-   // Write FFD box into a .plt file for visualization
-   WriteFFDBox(&ffd);
+      // Find min/max range of FFD variables
+      MinMaxRangeFFD(&ffd.box);
 
-   // Write FFD Box with the axis of Wing Twist in .vtk file for visualization
-   //WriteFFDBox_vtk(&ffd, &twist);
+      // Write FFD box into a .plt file for visualization
+      WriteFFDBox(&ffd);
 
-   // Check orientation of FFD box
-   CheckFFDBox(&ffd.box);
+      // Write FFD Box with the axis of Wing Twist in .vtk file for visualization
+      //WriteFFDBox_vtk(&ffd, &twist);
 
-   // Count number of non-zero FFD variables
-   CountFFDVar(&ffd);
+      // Check orientation of FFD box
+      CheckFFDBox(&ffd.box);
+
+      // Count number of non-zero FFD variables
+      CountFFDVar(&ffd);
+   }
 
    // Variable list requested
    if(argc==2 && strcmp(argv[1],"varlist")==0){
@@ -36,16 +39,16 @@ int main(int argc, char *argv[]){
       exit(0);
    }
 
-   // Read FFD variables from file
+   // Read FFD/twist variables from file
    ReadFFDVar(&ffd, &twist);
 
    // Apply FFD deformation to mesh
-   DeformMesh(&mesh, &ffd);
+   if(strcmp(ffd.exist,"yes")==0)
+      DeformMesh(&mesh, &ffd);
 
-   if(strcmp(twist.exist,"yes")==0){
-       //Apply Wing Twist
+   // Apply twist deformation to mesh
+   if(strcmp(twist.exist,"yes")==0)
        WingTwist(&mesh, &twist);
-   }
 
    // Write deformed mesh into file
    WriteMesh(&mesh);

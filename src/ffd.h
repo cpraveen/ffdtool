@@ -37,6 +37,7 @@ typedef struct cutoff{
 } CUTOFF;
 
 typedef struct ffd{
+   char        exist[24];
    UINT        nvar;
    UINT        type;
    FFD_BOX     box;
@@ -45,12 +46,12 @@ typedef struct ffd{
 } FFD;
 
 typedef struct twist{
+   char    exist[24];    
    UINT    deg;
    UINT    num_sect;
    REAL    n[3];
    REAL    x1[3],x2[3],x3[3];
    REAL    theta0, theta1, theta2;
-   char    exist[24];    
 } TWIST; 
 
 #endif
