@@ -21,6 +21,7 @@ void ReadFFD(FFD *ffd, TWIST *twist){
    // Read FFD definition
    fscanf(fpt, "%s", ffd->exist);
    if(strcmp(ffd->exist,"yes")==0){
+      printf("FFD variables are present\n");
       ReadFFDParam(fpt, ffd);
    }else{
       printf("No FFD variables present\n");
@@ -29,6 +30,7 @@ void ReadFFD(FFD *ffd, TWIST *twist){
    //Read Twist parameters
    fscanf(fpt,"%s",twist->exist);
    if(strcmp(twist->exist,"yes")==0){
+      printf("Twist variables are present\n");
       ReadTwistParam(fpt, twist);
    }else{
       printf("No twist variables present\n");
