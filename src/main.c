@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "mesh.h"
@@ -9,8 +10,13 @@ int main(int argc, char *argv[]){
    FFD ffd; 
    TWIST twist;
 
+   if(argc != 2){
+      printf("ffdtool: Specify mesh type, plot3d or gmsh\n");
+      exit(0);
+   }
+
    // Read reference mesh
-   ReadMesh(&mesh);
+   ReadMesh(&mesh, argv[1]);
 
    // Read shape parameterization
    ReadFFD(&ffd, &twist);
@@ -23,7 +29,8 @@ int main(int argc, char *argv[]){
       // Write FFD box into a .plt file for visualization
       WriteFFDBox(&ffd);
 
-      // Write FFD Box with the axis of Wing Twist in .vtk file for visualization
+      // Write FFD Box with the axis of Wing Twist in .vtk file 
+      // for visualization
       //WriteFFDBox_vtk(&ffd, &twist);
 
       // Check orientation of FFD box
@@ -51,7 +58,7 @@ int main(int argc, char *argv[]){
        WingTwist(&mesh, &twist);
 
    // Write deformed mesh into file
-   WriteMesh(&mesh);
+   WriteMesh(&mesh, argv[1]); 
 
    return 0;
 }

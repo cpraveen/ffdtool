@@ -8,14 +8,19 @@
 #define min(a,b)  ( (a) < (b) ? (a) : (b) )
 #define max(a,b)  ( (a) > (b) ? (a) : (b) )
 
-void ReadMesh(MESH*);
-void WriteMesh(MESH*);
+void ReadMesh(MESH*, char*);
+void ReadPlot3D(MESH*);
+void ReadGmsh(MESH*);
+void WriteMesh(MESH*, char*);
+void WritePlot3D(MESH*);
+void WriteGmsh(MESH*);
 void ReadFFD(FFD*, TWIST*);
 void WriteFFDBox(FFD*);
 void CheckFFDBox(FFD_BOX*);
 void ReadFFDVar(FFD*, TWIST*);
 REAL* rvector(UINT);
 REAL** RealArray2(UINT, UINT);
+UINT** IntegerArray2(UINT, UINT);
 void DelRealArray2(UINT nx, REAL**);
 void WriteFFDBox_vtk(FFD*, TWIST*);
 REAL*** RealArray3(UINT, UINT, UINT);
