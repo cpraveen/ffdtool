@@ -23,8 +23,11 @@ void ReadFFD(FFD *ffd, TWIST *twist){
    if(strcmp(ffd->exist,"yes")==0){
       printf("FFD variables are present\n");
       ReadFFDParam(fpt, ffd);
-   }else{
+   }else if(strcmp(ffd->exist,"no")==0){
       printf("No FFD variables present\n");
+   }else{
+      printf("Unkown option found in ffd.in\n");
+      exit(0);
    }
 
    //Read Twist parameters
@@ -32,8 +35,11 @@ void ReadFFD(FFD *ffd, TWIST *twist){
    if(strcmp(twist->exist,"yes")==0){
       printf("Twist variables are present\n");
       ReadTwistParam(fpt, twist);
-   }else{
+   }else if(strcmp(twist->exist,"yes")==0){
       printf("No twist variables present\n");
+   }else{
+      printf("Unknown option found in ffd.in\n");
+      exit(0);
    }
 
    fclose(fpt);
@@ -41,9 +47,9 @@ void ReadFFD(FFD *ffd, TWIST *twist){
 
 }
 
-//-------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 // Read FFD definition
-//-------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 void ReadFFDParam(FILE *fpt, FFD *ffd){
    UINT i, j, k, ii, jj, kk;
    char type[48];
@@ -135,9 +141,9 @@ void ReadFFDParam(FILE *fpt, FFD *ffd){
 
 }
 
-//-------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 // Read twist parameterization definition
-//-------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 void ReadTwistParam(FILE *fpt, TWIST *twist){
 
    fscanf(fpt,"%lf%lf%lf",&twist->n[0],&twist->n[1],&twist->n[2]);
