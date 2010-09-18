@@ -20,18 +20,18 @@ void WriteNum3sis(MESH *mesh){
    fprintf(fpt,"%d %d %d\n", mesh->np, mesh->n_elem, mesh->n_face);
    fprintf(fpt,"%d\n", mesh->neighbour_id);
 
-   // Read coordinates
+   // Write coordinates
    for(n=0; n<mesh->np; n++){
       fprintf(fpt, "%lf %lf %lf\n", mesh->x[n], mesh->y[n], mesh->z[n]);
    }
 
-   // Read tetrahedra
+   // Write tetrahedra
    for(n=0;n<mesh->n_elem;n++){
       for(j=0; j<4; j++) fprintf(fpt,"%d ", mesh->enodes[n][j]);
       fprintf(fpt,"\n");
    }
 
-   // Read boundary triangles
+   // Write boundary triangles
    for(n=mesh->n_elem; n<mesh->n_elem+mesh->n_face; n++){
       fprintf(fpt,"%d ", mesh->elem_type[n]);
       for(j=0; j<3; j++) fprintf(fpt,"%d ", mesh->enodes[n][j]);
