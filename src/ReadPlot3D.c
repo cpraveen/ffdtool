@@ -1,6 +1,7 @@
 /* Read PLOT3D mesh file */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "mesh.h"
 #include "decl.h"
 
@@ -8,12 +9,16 @@ void ReadPlot3D(MESH *mesh){
    FILE *fpt;
    UINT n, i, j, k;
    UINT npx, npy, npz;
+   char meshfile[100];
 
-   printf("Reading PLOT3D mesh file from grid.0 ...\n");
+   strcpy(meshfile, mesh->meshfile);
+   strcat(meshfile, ".0");
 
-   fpt = fopen("grid.0", "r");
+   printf("Reading PLOT3D mesh file from %s ...\n", meshfile);
+
+   fpt = fopen(meshfile, "r");
    if(fpt==NULL){
-      printf("ReadMesh: Could not open grid.0\n");
+      printf("ReadMesh: Could not open mesh file\n");
       exit(0);
    }
 
@@ -59,5 +64,5 @@ void ReadPlot3D(MESH *mesh){
    }
    fclose(fpt);
 
-   printf("Finished reading grid.0\n");
+   printf("Finished reading mesh file\n");
 }

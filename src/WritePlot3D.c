@@ -10,7 +10,7 @@ void WritePlot3D(MESH *mesh){
 
    printf("Writing PLOT3D mesh file into grid.fmt ... ");
 
-   fpt = fopen("grid.fmt", "w");
+   fpt = fopen(mesh->meshfile, "w");
    if(fpt==NULL){
       printf("ERROR: Could open file grid.fmt for writing\n");
       exit(0);

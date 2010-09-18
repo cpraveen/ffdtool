@@ -10,10 +10,14 @@ int main(int argc, char *argv[]){
    FFD ffd; 
    TWIST twist;
 
-   if(argc != 2){
-      printf("ffdtool: Specify mesh type, plot3d or gmsh\n");
+   if(argc != 3){
+      printf("ffdtool: Specify <mesh type> and <filename>\n");
+      printf("         mesh type = plot3d or gmsh or num3sis\n");
       exit(0);
    }
+
+   // Copy mesh file name
+   strcpy(mesh.meshfile, argv[2]);
 
    // Read reference mesh
    ReadMesh(&mesh, argv[1]);
@@ -21,7 +25,7 @@ int main(int argc, char *argv[]){
    // Read shape parameterization
    ReadFFD(&ffd, &twist);
 
-   if(strcmp(ffd.exist,"yes")==0){
+   if(strcmp(ffd.exist, "yes")==0){
 
       // Find min/max range of FFD variables
       MinMaxRangeFFD(&ffd.box);

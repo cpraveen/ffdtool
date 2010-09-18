@@ -1,6 +1,7 @@
 /* Read Gmsh mesh file */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "mesh.h"
 #include "decl.h"
 
@@ -10,11 +11,15 @@ void ReadGmsh(MESH *mesh){
    UINT index,nnodes=0;
    UINT ntags;
    char a[100];
+   char meshfile[100];
 
-   printf("Reading Gmsh mesh file from grid.0 ...\n");
-   fpt = fopen("out.msh", "r");
+   strcpy(meshfile, mesh->meshfile);
+   strcat(meshfile, ".0");
+
+   printf("Reading Gmsh mesh file from %s ...\n", meshfile);
+   fpt = fopen(meshfile, "r");
    if(fpt==NULL){
-      printf("ReadGmsh: Could not open grid.0\n");
+      printf("ReadGmsh: Could not mesh file\n");
       exit(0);
    }
    for(i=0;i<=5;i++) {
@@ -82,5 +87,5 @@ void ReadGmsh(MESH *mesh){
    }
    fclose(fpt);
 
-   printf("Finished reading grid.0\n");
+   printf("Finished reading mesh file\n");
 }

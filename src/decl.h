@@ -11,9 +11,11 @@
 void ReadMesh(MESH*, char*);
 void ReadPlot3D(MESH*);
 void ReadGmsh(MESH*);
+void ReadNum3sis(MESH*);
 void WriteMesh(MESH*, char*);
 void WritePlot3D(MESH*);
 void WriteGmsh(MESH*);
+void WriteNum3sis(MESH*);
 void ReadFFD(FFD*, TWIST*);
 void WriteFFDBox(FFD*);
 void CheckFFDBox(FFD_BOX*);
