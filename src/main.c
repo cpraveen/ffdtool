@@ -10,7 +10,7 @@ int main(int argc, char *argv[]){
    FFD ffd; 
    TWIST twist;
 
-   if(argc >= 3){
+   if(argc < 3){
       printf("ffdtool: Specify <mesh type> and <filename>\n");
       printf("         mesh type = plot3d or gmsh or num3sis\n");
       exit(0);
