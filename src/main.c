@@ -10,7 +10,7 @@ int main(int argc, char *argv[]){
    FFD ffd; 
    TWIST twist;
 
-   if(argc != 3){
+   if(argc >= 3){
       printf("ffdtool: Specify <mesh type> and <filename>\n");
       printf("         mesh type = plot3d or gmsh or num3sis\n");
       exit(0);
@@ -45,7 +45,7 @@ int main(int argc, char *argv[]){
    }
 
    // Variable list requested
-   if(argc==2 && strcmp(argv[1],"varlist")==0){
+   if(argc==4 && strcmp(argv[3],"varlist")==0){
       PrintVars(&ffd, &twist);
       exit(0);
    }
