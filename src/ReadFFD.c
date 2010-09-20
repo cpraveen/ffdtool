@@ -35,7 +35,7 @@ void ReadFFD(FFD *ffd, TWIST *twist){
    if(strcmp(twist->exist,"yes")==0){
       printf("Twist variables are present\n");
       ReadTwistParam(fpt, twist);
-   }else if(strcmp(twist->exist,"yes")==0){
+   }else if(strcmp(twist->exist,"no")==0){
       printf("No twist variables present\n");
    }else{
       printf("Unknown option found in ffd.in\n");

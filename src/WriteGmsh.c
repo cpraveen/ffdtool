@@ -8,11 +8,11 @@ void WriteGmsh(MESH *mesh){
    FILE *fpt;
    UINT n,b;
 
-   printf("Writing Gmsh mesh file into grid.msh ...\n ");
+   printf("Writing Gmsh mesh file into %s ...\n", mesh->meshfile);
 
-   fpt = fopen("grid.msh", "w");
+   fpt = fopen(mesh->meshfile, "w");
    if(fpt==NULL){
-      printf("ERROR: Could open file grid.msh for writing\n");
+      printf("ERROR: Could open file for writing\n");
       exit(0);
    }
 
@@ -51,5 +51,5 @@ void WriteGmsh(MESH *mesh){
    fprintf(fpt,"%s\n","$EndElements");
    fclose(fpt);
 
-   printf("DONE with writing the Mesh file\n");
+   printf("DONE with writing the mesh file\n");
 }
