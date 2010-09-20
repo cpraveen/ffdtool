@@ -23,6 +23,7 @@ void ReadFFDVar(FFD*, TWIST*);
 REAL* rvector(UINT);
 REAL** RealArray2(UINT, UINT);
 UINT** IntegerArray2(UINT, UINT);
+UINT*  IntegerArray(UINT);
 void DelRealArray2(UINT nx, REAL**);
 void WriteFFDBox_vtk(FFD*, TWIST*);
 REAL*** RealArray3(UINT, UINT, UINT);
