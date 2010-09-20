@@ -61,6 +61,12 @@ int main(int argc, char *argv[]){
    if(strcmp(twist.exist,"yes")==0)
        WingTwist(&mesh, &twist);
 
+   // Change some flags
+   if(argc==4 && strcmp(argv[3],"changeflags")==0 &&
+      strcmp(argv[1],"num3sis")==0){
+      FlagInsideTri(&mesh, &ffd);
+   }
+
    // Write deformed mesh into file
    WriteMesh(&mesh, argv[1]); 
 

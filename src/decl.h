@@ -33,6 +33,7 @@ void CountFFDVar(FFD*);
 void PrintVars(FFD *ffd, TWIST *twist);
 void DeformMesh(MESH*, FFD*);
 void WingTwist(MESH*, TWIST*);
+void FlagInsideTri(MESH*, FFD*);
 REAL distToPlane(REAL *axis, REAL *point, REAL *p);
 UINT IsInside(REAL, REAL, REAL, FFD_BOX*, UINT*, UINT*, UINT*);
 void MinMaxRangeFFD(FFD_BOX*);
