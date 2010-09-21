@@ -1,4 +1,5 @@
-// Matrix Multiplication of a vector with a 4x4 matrix
+// Matrix Multiplication
+// result = matrix*vector
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,19 +7,19 @@
 #include "decl.h"
 
 
-REAL* MatMul(REAL *vector1, REAL **vector2, UINT i, UINT j){
+REAL* MatMul(REAL *vector, REAL **matrix, UINT nrow, UINT ncol){
     
-    REAL *multi;
-    REAL sum;
-    UINT k,l;
-    multi = rvector(4);
-    for(k=0;k<j;k++){
-        sum=0;
-        for(l=0;l<i;l++){
-            sum += vector2[k][l]*vector1[l];
-        }
-        multi[k] = sum;
+    REAL *result;
+    UINT k, l;
+
+    result = rvector(nrow);
+
+    for(k=0; k<nrow; k++){
+        result[k] = 0.0;
+        for(l=0; l<ncol; l++)
+           result[k] += matrix[k][l]*vector[l];
     }
-    return multi;
+
+    return result;
 }
     
