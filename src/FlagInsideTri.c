@@ -10,6 +10,8 @@
 #include "mesh.h"
 #include "decl.h"
 
+void WriteTri(MESH *mesh, UINT ntri, UINT new_flag);
+
 void FlagInsideTri(MESH *mesh, FFD *ffd){
    UINT i, j;
    REAL x, y, z;
@@ -21,6 +23,7 @@ void FlagInsideTri(MESH *mesh, FFD *ffd){
    UINT *btype;
    UINT *insideflag;
    UINT nchanged=0;
+   UINT ninside=0;
 
    if(strcmp(ffd->exist,"no")==0){
       printf("FlagInsideTri: FFD does not exist !!!");
@@ -53,8 +56,10 @@ void FlagInsideTri(MESH *mesh, FFD *ffd){
       //Is this mesh point inside the ffd box
       ix = iy = iz = -1;
       insideflag[i] = IsInside(x, y, z, &ffd->box, &ix, &iy, &iz);
+      if(insideflag[i]) ++ninside;
 
    }
+   printf("Number of points inside ffd box = %d\n", ninside);
 
    // Find triangles inside FFD box
    for(i=mesh->n_elem; i<mesh->n_elem+mesh->n_face; i++){
@@ -76,8 +81,55 @@ void FlagInsideTri(MESH *mesh, FFD *ffd){
 
    printf("Changed flags for %d triangles\n", nchanged);
 
+   WriteTri(mesh, nchanged, new_flag);
+
    // Free local memory
    free(btype);
    free(insideflag);
+
+}
+
+// Write out triangles whose flag was changed. This is just for visualization
+void WriteTri(MESH *mesh, UINT ntri, UINT new_flag){
+   FILE *fpt;
+   UINT i;
+   UINT n0, n1, n2;
+
+   printf("Writing triangles whose flag changed into tri_changed.vtk ...\n");
+
+   fpt = fopen("tri_changed.vtk", "w");
+   if(fpt==NULL){
+      printf("WriteTri: Could not open tri_changed.vtk for writing\n");
+      exit(0);
+   }
+
+   fprintf(fpt,"# vtk DataFile Version 2.0\n");
+   fprintf(fpt,"Triangles, written by WriteTri\n");
+   fprintf(fpt,"ASCII\n");
+   fprintf(fpt,"DATASET UNSTRUCTURED_GRID\n");
+
+   // We have to write out all the points
+   fprintf(fpt,"POINTS  %d  float\n", mesh->np);
+   for(i=0; i<mesh->np; i++)
+      fprintf(fpt, "%lf %lf %lf\n", mesh->x[i], mesh->y[i], mesh->z[i]);
+
+   // Write only changed triangles
+   fprintf(fpt,"CELLS  %d  %d\n", ntri, ntri*4);
+   for(i=mesh->n_elem; i<mesh->n_elem+mesh->n_face; i++){
+      n0 = mesh->enodes[i][0] - 1;
+      n1 = mesh->enodes[i][1] - 1;
+      n2 = mesh->enodes[i][2] - 1;
+
+      if(mesh->elem_type[i]==new_flag)
+         fprintf(fpt, "%d %d %d %d\n", 3, n0, n1, n2);
+   }
+
+   // All are triangles, vtk type = 5
+   fprintf(fpt,"CELL_TYPES  %d\n", ntri);
+   for(i=0; i<ntri; i++)
+      fprintf(fpt,"%d\n", 5);
+
+
+   fclose(fpt);
 
 }
