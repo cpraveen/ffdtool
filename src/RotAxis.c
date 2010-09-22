@@ -8,37 +8,30 @@
 
 
 REAL* RotAxis(REAL *center_rot,REAL *axis_rot,REAL* p1,REAL theta){
-    UINT i,j, k=4;
-    REAL **trans_mat, **trans_mat_inv;
-    REAL p[4],*Final_point;
+    UINT i,j, k=3;
+    REAL p[3],*Final_point;
     REAL *p_new;
     REAL **Rx, **Rx_inv, **Ry, **Ry_inv, **Rz;
-    REAL *Rot_x, *Rot_x_inv, *Rot_y, *Rot_y_inv, *Rot, *trans;
+    REAL *Rot_x, *Rot_y, *Rot_y_inv, *Rot;
     REAL sum, sum1, cos_alpha, sin_alpha, cos_beta, sin_beta;
     REAL cos_theta, sin_theta, d, e;        
 
-    trans_mat = RealArray2(k,k);
-    trans_mat_inv = RealArray2(k,k);
     Rx = RealArray2(k,k);
     Rx_inv = RealArray2(k,k);
     Ry = RealArray2(k,k);
     Ry_inv = RealArray2(k,k);
     Rz = RealArray2(k,k);
     Rot_x = rvector(k);
-    Rot_x_inv = rvector(k);
     Rot_y = rvector(k);
     Rot_y_inv = rvector(k);
     Rot = rvector(k);
-    trans = rvector(k);
     p_new= rvector(k);
     Final_point = rvector(3);
     
     // Initializing all the pointers as Identity Matrices   
-    for(i=0;i<=3;i++){
-        for(j=0;j<=3;j++){
+    for(i=0;i<3;i++){
+        for(j=0;j<3;j++){
             if(j==i){
-                trans_mat[i][j] = 1;
-                trans_mat_inv[i][j] = 1;
                 Rx[i][j] = 1;
                 Rx_inv[i][j] = 1;
                 Ry[i][j] = 1;
@@ -46,8 +39,6 @@ REAL* RotAxis(REAL *center_rot,REAL *axis_rot,REAL* p1,REAL theta){
                 Rz[i][j] = 1;
             }
             else{
-                trans_mat[i][j] = 0;
-                trans_mat_inv[i][j] = 0;
                 Rx[i][j] = 0;
                 Rx_inv[i][j] = 0;
                 Ry[i][j] = 0;
@@ -57,30 +48,25 @@ REAL* RotAxis(REAL *center_rot,REAL *axis_rot,REAL* p1,REAL theta){
         } 
     }
    
-    // Creating a 4 component vector from the 3 component center of Rotation
-    for(i=0;i<=3;i++){
-        if(i==3){
-            p[i]=1;
-        }
-        else{
-            p[i] = p1[i];
-        }
+    // Translating center of rotation to origin.
+    for(i=0;i<=2;i++){
+            p[i] = p1[i] - center_rot[i];
     }
-
-    //Translation matrix
-    i= 3;
-    for(j=0;j<=2;j++){
-        trans_mat[j][i] = (-1)*center_rot[j];            
-        trans_mat_inv[j][i] = center_rot[j];
-    }
-
+    
     //Rotation of space about x axis
     sum = pow(axis_rot[1],2)+pow(axis_rot[2],2);
     d = sqrt(sum);
+
+    if(d < 1.0e-10){ 
+    //Axis of rotation lies on x axis.
+        cos_alpha = 1.;
+        sin_alpha = 0.;
+    }else{
     //cos_alpha = (dot((0,0,axis[2]),(0,axis[1],axis[2]),3))/(axis[2]*d);
     cos_alpha = axis_rot[2]/d;
     //sin_alpha = (cross((0,0,axis[2]),(0,axis[1],axis[2]),3))/(axis[2]*d);
     sin_alpha = axis_rot[1]/d;
+    }
 
     for(i=1;i<=2;i++){
         for(j=1;j<=2;j++){
@@ -101,9 +87,9 @@ REAL* RotAxis(REAL *center_rot,REAL *axis_rot,REAL* p1,REAL theta){
     
     //Rotation of space about y axis
 
-    sum1 = pow(axis_rot[0],2)+pow((pow(axis_rot[1],2)+pow(axis_rot[2],2)),2)/pow(d,2);
+    sum1 = pow(axis_rot[0],2)+pow(d,2);
     e = sqrt(sum1);
-    cos_beta = sum/(d*e);
+    cos_beta = d/e;
     sin_beta = axis_rot[0]/e;
 
     for(i=0;i<=2;i++){
@@ -145,31 +131,27 @@ REAL* RotAxis(REAL *center_rot,REAL *axis_rot,REAL* p1,REAL theta){
     }
     
     // Matrix Multiplication to obtain the rotated point
-    trans = MatMul(p,trans_mat,4,4);
-    Rot_x = MatMul(trans,Rx,4,4);
-    Rot_y = MatMul(Rot_x,Ry,4,4);
-    Rot   = MatMul(Rot_y,Rz,4,4);
-    Rot_y_inv = MatMul(Rot,Ry_inv,4,4);
-    Rot_x_inv = MatMul(Rot_y_inv,Rx_inv,4,4);
-    p_new = MatMul(Rot_x_inv,trans_mat_inv,4,4);
+    Rot_x = MatMul(p,Rx,3,3);
+    Rot_y = MatMul(Rot_x,Ry,3,3);
+    Rot   = MatMul(Rot_y,Rz,3,3);
+    Rot_y_inv = MatMul(Rot,Ry_inv,3,3);
+    p_new = MatMul(Rot_y_inv,Rx_inv,3,3);
+  
     
+  
     for(i=0;i<=2;i++){
-        Final_point[i] = p_new[i];
+        Final_point[i] = p_new[i] + center_rot[i];
     }
   
-    free(trans_mat);
-    free(trans_mat_inv);
     free(Rx);
     free(Rx_inv);
     free(Ry);
     free(Ry_inv);
     free(Rz);
     free(Rot_x);
-    free(Rot_x_inv);
     free(Rot_y);
     free(Rot_y_inv);
     free(Rot);
-    free(trans);
     free(p_new);
     
     return Final_point;

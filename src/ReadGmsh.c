@@ -19,7 +19,7 @@ void ReadGmsh(MESH *mesh){
    printf("Reading Gmsh mesh file from %s ...\n", meshfile);
    fpt = fopen(meshfile, "r");
    if(fpt==NULL){
-      printf("ReadGmsh: Could not mesh file\n");
+      printf("ReadGmsh: Could not read mesh file\n");
       exit(0);
    }
    for(i=0;i<=5;i++) {
