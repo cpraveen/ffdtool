@@ -33,7 +33,7 @@ void WriteNum3sis(MESH *mesh){
 
    // Write boundary triangles
    for(n=mesh->n_elem; n<mesh->n_elem+mesh->n_face; n++){
-      fprintf(fpt,"%d ", mesh->elem_type[n]);
+      fprintf(fpt,"%d\n", mesh->elem_type[n]);
       for(j=0; j<3; j++) fprintf(fpt,"%d ", mesh->enodes[n][j]);
       fprintf(fpt,"\n");
    }
