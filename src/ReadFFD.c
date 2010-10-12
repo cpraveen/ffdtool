@@ -98,12 +98,12 @@ void ReadFFDParam(FILE *fpt, FFD *ffd){
    printf("     xi  : %15.3e%15.3e\n", ffd->cut.lx1, ffd->cut.lx2);
    printf("     eta : %15.3e%15.3e\n", ffd->cut.ly1, ffd->cut.ly2);
    printf("     zeta: %15.3e%15.3e\n", ffd->cut.lz1, ffd->cut.lz2);
-   assert(ffd->cut.lx1 >= 0.0 && ffd->cut.lx1 < 0.5);
-   assert(ffd->cut.lx2 >= 0.0 && ffd->cut.lx2 < 0.5);
-   assert(ffd->cut.ly1 >= 0.0 && ffd->cut.ly1 < 0.5);
-   assert(ffd->cut.ly2 >= 0.0 && ffd->cut.ly2 < 0.5);
-   assert(ffd->cut.lz1 >= 0.0 && ffd->cut.lz1 < 0.5);
-   assert(ffd->cut.lz2 >= 0.0 && ffd->cut.lz2 < 0.5);
+   assert(ffd->cut.lx1 >= 0.0 && ffd->cut.lx1 <  0.5);
+   assert(ffd->cut.lx2 >  0.0 && ffd->cut.lx2 <= 1.0);
+   assert(ffd->cut.ly1 >= 0.0 && ffd->cut.ly1 <  0.5);
+   assert(ffd->cut.ly2 >  0.0 && ffd->cut.ly2 <= 1.0);
+   assert(ffd->cut.lz1 >= 0.0 && ffd->cut.lz1 <  0.5);
+   assert(ffd->cut.lz2 >  0.0 && ffd->cut.lz2 <= 1.0);
 
    //Read parameterization
    fscanf(fpt, "%d%d%d", &ffd->var.ni, &ffd->var.nj, &ffd->var.nk);
