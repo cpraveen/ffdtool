@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 #include "type.h"
 #include "decl.h"
 
 UINT** IntegerArray2(UINT nx, UINT ny){
    UINT **x;
    UINT i;
+
+   assert(nx > 0 && ny > 0);
 
    x = (UINT**)malloc(nx*sizeof(UINT*));
    if(x==NULL){

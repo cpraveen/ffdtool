@@ -12,6 +12,8 @@ void DeformMesh(MESH *mesh, FFD *ffd){
    UINT inside;
    UINT ix, iy, iz, ninside=0;
 
+   printf("Applying FFD deformation ...\n");
+
    for(i=0; i<mesh->np; i++){ //Loop over each grid point
 
       x = mesh->x[i];

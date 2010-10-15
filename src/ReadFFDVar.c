@@ -47,14 +47,12 @@ void ReadFFDVar(FFD *ffd, TWIST *twist){
    if(strcmp(twist->exist,"yes")==0){
       printf("Reading twist variables:\n");
 
-      fscanf(fpt,"%lf",&twist->theta0);
-      fscanf(fpt,"%lf",&twist->theta1);
-      printf("Coefficients of Linear Variation of Twist:\n");
-      printf("  Theta0 = %f deg.\n",twist->theta0);
-      printf("  Theta1 = %f deg.\n",twist->theta1);
-      //convert from degrees to radians
-      twist->theta0 = twist->theta0*M_PI/180.0;
-      twist->theta1 = twist->theta1*M_PI/180.0;
+      for(i=0; i<twist->deg+1; i++){
+         fscanf(fpt,"%lf",&twist->theta[i]);
+         printf("  Theta[%d] = %f deg.\n",i,twist->theta[i]);
+         //convert from degrees to radians
+         twist->theta[i] = twist->theta[i]*M_PI/180.0;
+      }
    }
 
    fclose(fpt);

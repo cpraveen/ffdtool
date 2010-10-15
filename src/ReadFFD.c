@@ -145,37 +145,27 @@ void ReadFFDParam(FILE *fpt, FFD *ffd){
 // Read twist parameterization definition
 //-----------------------------------------------------------------------------
 void ReadTwistParam(FILE *fpt, TWIST *twist){
+   UINT i;
 
    fscanf(fpt,"%lf%lf%lf",&twist->n[0],&twist->n[1],&twist->n[2]);
    printf("Axis of Wing Twist, n : (%lf, %lf, %lf)\n",
           twist->n[0],twist->n[1],twist->n[2]);
 
+   // Twist parameterization degree
    fscanf(fpt,"%d",&twist->deg);
    printf("Degree of spanwise variation of Wing Twist: %d\n",
           twist->deg);    
+   // NOTE: for deg>1, we have to decide what happens beyond wingtip
+   assert(twist->deg == 1);
+   twist->theta = rvector(twist->deg + 1);
 
    fscanf(fpt,"%d",&twist->num_sect);
    printf("Number of spanwise sections of Wing = %d\n",twist->num_sect);
-   if(twist->num_sect==1){
-       fscanf(fpt,"%lf%lf%lf",&twist->x1[0],&twist->x1[1],&twist->x1[2]);
-       printf("Center of the wing root : (%lf, %lf, %lf)\n",
-              twist->x1[0],twist->x1[1],twist->x1[2]);
-       fscanf(fpt,"%lf%lf%lf",&twist->x2[0],&twist->x2[1],&twist->x2[2]);
-       printf("Center of last Crossection of the wing: (%lf, %lf, %lf)\n",
-              twist->x2[0],twist->x2[1],twist->x2[2]);
-   } 
-   else if(twist->num_sect==2){    
-       printf("Twist for num_sect=2 not implemented\n");
-       exit(0);
-       fscanf(fpt,"%lf%lf%lf",&twist->x1[0],&twist->x1[1],&twist->x1[2]);
-       printf("Center of the wing root : (%lf, %lf, %lf)\n",
-              twist->x1[0],twist->x1[1],twist->x1[2]);
-       fscanf(fpt,"%lf%lf%lf",&twist->x2[0],&twist->x2[1],&twist->x2[2]);
-       printf("Center of Middle section of the wing: (%lf, %lf, %lf)\n",
-              twist->x2[0],twist->x2[1],twist->x2[2]);
-       fscanf(fpt,"%lf%lf%lf",&twist->x3[0],&twist->x3[1],&twist->x3[2]);
-       printf("Center of last Crossection of the wing: (%lf, %lf, %lf)\n",
-              twist->x3[0],twist->x3[1],twist->x3[2]);
-   }       
-              
+   assert(twist->num_sect >= 1);
+   twist->x = RealArray2(twist->num_sect+1,3);
+   for(i=0; i<twist->num_sect+1; i++){
+       fscanf(fpt,"%lf%lf%lf",&twist->x[i][0],&twist->x[i][1],&twist->x[i][2]);
+       printf("%e %e %e\n", twist->x[i][0],twist->x[i][1],twist->x[i][2]);
+   }
+
 }

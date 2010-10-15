@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 #include "type.h"
 #include "decl.h"
 
 REAL** RealArray2(UINT nx, UINT ny){
    REAL **x;
    UINT i;
+
+   assert(nx > 0 && ny > 0);
 
    x = (REAL**)malloc(nx*sizeof(REAL*));
    if(x==NULL){
