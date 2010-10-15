@@ -17,6 +17,7 @@ void WritePlot3D(MESH*);
 void WriteGmsh(MESH*);
 void WriteNum3sis(MESH*);
 void ReadFFD(FFD*, TWIST*);
+void WriteTwist(TWIST*);
 void WriteFFDBox(FFD*);
 void CheckFFDBox(FFD_BOX*);
 void ReadFFDVar(FFD*, TWIST*);

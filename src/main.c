@@ -44,6 +44,11 @@ int main(int argc, char *argv[]){
       CountFFDVar(&ffd);
    }
 
+   // Write twist line of center into file for visualization
+   if(strcmp(twist.exist, "yes")==0){
+      WriteTwist(&twist);
+   }
+
    // Variable list requested
    if(argc==4 && strcmp(argv[3],"varlist")==0){
       PrintVars(&ffd, &twist);
