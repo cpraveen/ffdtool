@@ -57,6 +57,8 @@ void WingTwist(MESH *mesh, TWIST *twist){
             for(j=0; j<=2; j++)
                center[j] = twist->x[isec][j] + 
                            t * (twist->x[isec+1][j] - twist->x[isec][j]);
+
+            s     = d/d_x_sym[twist->num_sect];
          }
          else{
 
@@ -66,10 +68,10 @@ void WingTwist(MESH *mesh, TWIST *twist){
            for(j=0; j<=2; j++)
               center[j] = twist->x[twist->num_sect][j] + 
                           twist->n[j]*(d - d_x_sym[twist->num_sect]);
+           s = 1.0;
 
          }
 
-        s     = d/d_x_sym[twist->num_sect];
         theta = twist->theta[0] * (1.0 - s) + twist->theta[1] * s;
         point1 = RotAxis(center, twist->n, a, theta);
 
