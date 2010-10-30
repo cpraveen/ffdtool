@@ -62,8 +62,11 @@ int main()
       if(k >= 0) kzero[k] = 0;
    }
 
+   printf("\n");
+
    nvar = 0;
 
+   printf("%d %d %d\n\n", idim, jdim, kdim);
    for(k=0; k<=kdim; k++)
       for(j=0; j<=jdim; j++)
          for(i=0; i<=idim; i++)
