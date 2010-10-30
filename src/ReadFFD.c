@@ -67,9 +67,9 @@ void ReadFFDParam(FILE *fpt, FFD *ffd){
    fscanf(fpt, "%d%d%d", &ffd->box.idim, &ffd->box.jdim, &ffd->box.kdim);
    printf("Dimensions of FFD box: ");
    printf("%d %d %d\n", ffd->box.idim, ffd->box.jdim, ffd->box.kdim);
-   assert(ffd->box.idim >=1);
-   assert(ffd->box.jdim >=1);
-   assert(ffd->box.kdim >=1);
+   assert(ffd->box.idim >=0);
+   assert(ffd->box.jdim >=0);
+   assert(ffd->box.kdim >=0);
 
    ffd->box.x = RealArray3(1+ffd->box.idim, 1+ffd->box.jdim, 1+ffd->box.kdim);
    ffd->box.y = RealArray3(1+ffd->box.idim, 1+ffd->box.jdim, 1+ffd->box.kdim);
