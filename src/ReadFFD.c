@@ -67,9 +67,9 @@ void ReadFFDParam(FILE *fpt, FFD *ffd){
    fscanf(fpt, "%d%d%d", &ffd->box.idim, &ffd->box.jdim, &ffd->box.kdim);
    printf("Dimensions of FFD box: ");
    printf("%d %d %d\n", ffd->box.idim, ffd->box.jdim, ffd->box.kdim);
-   assert(ffd->box.idim >=0);
-   assert(ffd->box.jdim >=0);
-   assert(ffd->box.kdim >=0);
+   assert(ffd->box.idim >=1);
+   assert(ffd->box.jdim >=1);
+   assert(ffd->box.kdim >=1);
 
    ffd->box.x = RealArray3(1+ffd->box.idim, 1+ffd->box.jdim, 1+ffd->box.kdim);
    ffd->box.y = RealArray3(1+ffd->box.idim, 1+ffd->box.jdim, 1+ffd->box.kdim);
@@ -109,9 +109,9 @@ void ReadFFDParam(FILE *fpt, FFD *ffd){
    fscanf(fpt, "%d%d%d", &ffd->var.ni, &ffd->var.nj, &ffd->var.nk);
    printf("Degree of Bezier polynomial: ");
    printf("%d %d %d\n", ffd->var.ni, ffd->var.nj, ffd->var.nk);
-   assert(ffd->var.ni >= 1);
-   assert(ffd->var.nj >= 1);
-   assert(ffd->var.nk >= 1);
+   assert(ffd->var.ni >= 0);
+   assert(ffd->var.nj >= 0);
+   assert(ffd->var.nk >= 0);
    ffd->var.Xmin = RealArray3(1+ffd->var.ni, 1+ffd->var.nj, 1+ffd->var.nk);
    ffd->var.Ymin = RealArray3(1+ffd->var.ni, 1+ffd->var.nj, 1+ffd->var.nk);
    ffd->var.Zmin = RealArray3(1+ffd->var.ni, 1+ffd->var.nj, 1+ffd->var.nk);
