@@ -12,7 +12,7 @@ void WriteNum3sis(MESH *mesh){
    printf("Writing Num3sis mesh file into %s ...", mesh->meshfile);
    fpt = fopen(mesh->meshfile, "w");
    if(fpt==NULL){
-      printf("ReadNum3sis: Could not open mesh file\n");
+      printf("WriteNum3sis: Could not open mesh file\n");
       exit(0);
    }
 

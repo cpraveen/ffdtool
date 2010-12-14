@@ -12,9 +12,12 @@ void ReadMesh(MESH *mesh, char *meshtype){
         ReadPlot3D(mesh);
     }else if(strcmp(meshtype,"num3sis")==0){
         ReadNum3sis(mesh);
+    }else if(strcmp(meshtype,"hyena")==0){
+        ReadHyena(mesh);
     }else{
         printf("ReadMesh: Unknown mesh type %s\n", meshtype);
-        printf("          Valid types are gmsh, plot3d, num3sis\n");
+        printf("          Valid types are:\n");
+        printf("             gmsh, plot3d, num3sis, hyena\n");
         exit(0);
     }
         

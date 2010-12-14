@@ -13,6 +13,8 @@ void WriteMesh(MESH *mesh, char *meshtype){
         WritePlot3D(mesh);
     }else if(strcmp(meshtype,"num3sis")==0){
         WriteNum3sis(mesh);
+    }else if(strcmp(meshtype,"hyena")==0){
+        WriteHyena(mesh);
     }else{
        printf("WriteMesh: Dont know how to write this mesh !!!\n");
        exit(0);

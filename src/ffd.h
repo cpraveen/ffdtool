@@ -47,11 +47,11 @@ typedef struct ffd{
 
 typedef struct twist{
    char    exist[24];    
-   UINT    num_sect;
-   REAL    n[3];
-   REAL    **x;
-   UINT    deg;
-   REAL    *theta;
+   REAL    n[3];      // twist axis
+   UINT    num_sect;  // no. of sections defining twist centers
+   REAL    **x;       // points defining the sections
+   UINT    deg;       // degree of twist variation
+   REAL    *theta;    // twist variables
 } TWIST; 
 
 #endif

@@ -8,10 +8,10 @@ void WriteFFDBox(FFD *ffd){
    FILE *fpt;
    UINT i, j, k;
 
-   printf("Writing ffd box into file ffdbox.plt ...\n");
+   printf("Writing ffd box into file ffdbox.xyz ...\n");
    fpt = fopen("ffdbox.xyz", "w");
    if(fpt==NULL){
-      printf("ERROR: Could not open ffdbox.plt file\n");
+      printf("ERROR: Could not open ffdbox.xyz file\n");
       exit(0);
    }
    fprintf(fpt, "1\n");
@@ -38,5 +38,5 @@ void WriteFFDBox(FFD *ffd){
          for(i=0; i<=ffd->box.idim; i++)
             fprintf(fpt, "%15.6e ", ffd->box.z[i][j][k]);
    fclose(fpt);
-   printf("Finished writing ffdbox.plt file\n");
+   printf("Finished writing ffdbox.xyz file\n");
 }
