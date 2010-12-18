@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
 #include "mesh.h"
 #include "decl.h"
 
@@ -23,6 +24,7 @@ void ReadPlot3D(MESH *mesh){
    }
 
    fscanf(fpt, "%d", &mesh->nblk);
+   assert(mesh->nblk > 0);
    printf("Number of blocks = %d\n", mesh->nblk);
    mesh->idim = (UINT*)calloc(mesh->nblk, sizeof(UINT));
    mesh->jdim = (UINT*)calloc(mesh->nblk, sizeof(UINT));
@@ -32,6 +34,9 @@ void ReadPlot3D(MESH *mesh){
    for(n=0; n<mesh->nblk; n++){
       fscanf(fpt, "%d%d%d", &mesh->idim[n], &mesh->jdim[n], &mesh->kdim[n]);
       printf("%d %d %d %d\n", n+1, mesh->idim[n], mesh->jdim[n], mesh->kdim[n]);
+      assert(mesh->idim[n] > 0);
+      assert(mesh->jdim[n] > 0);
+      assert(mesh->kdim[n] > 0);
       mesh->np += mesh->idim[n] * mesh->jdim[n] * mesh->kdim[n];
    }
    printf("Total number of mesh points = %d\n", mesh->np);

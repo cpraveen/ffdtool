@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
 #include "mesh.h"
 #include "decl.h"
 
@@ -24,6 +25,7 @@ void ReadHyena(MESH *mesh){
 
    fscanf(fpt, "%d", &mesh->nblk);
    printf("Number of blocks = %d\n", mesh->nblk);
+   assert(mesh->nblk > 0);
    mesh->idim = (UINT*)calloc(mesh->nblk, sizeof(UINT));
    mesh->jdim = (UINT*)calloc(mesh->nblk, sizeof(UINT));
    mesh->kdim = (UINT*)calloc(mesh->nblk, sizeof(UINT));
@@ -36,6 +38,9 @@ void ReadHyena(MESH *mesh){
 
       fscanf(fpt, "%d%d%d", &mesh->idim[n], &mesh->jdim[n], &mesh->kdim[n]);
       printf("%d %d %d %d\n", n+1, mesh->idim[n], mesh->jdim[n], mesh->kdim[n]);
+      assert(mesh->idim[n] > 0);
+      assert(mesh->jdim[n] > 0);
+      assert(mesh->kdim[n] > 0);
 
       mesh->np += mesh->idim[n] * mesh->jdim[n] * mesh->kdim[n];
 
