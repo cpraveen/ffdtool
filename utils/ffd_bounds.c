@@ -38,6 +38,7 @@ int main()
    i = 0;
    while(i != -1)
    {
+      printf("Enter -1 to end: ");
       printf("Min=%d, max=%d, -1 to end: ", 0, idim);
       scanf("%d", &i);
       if(i >= 0) izero[i] = 0;
@@ -57,6 +58,7 @@ int main()
    k = 0;
    while(k != -1)
    {
+      printf("Enter -1 to end: ");
       printf("Min=%d, max=%d, -1 to end: ", 0, kdim);
       scanf("%d", &k);
       if(k >= 0) kzero[k] = 0;
