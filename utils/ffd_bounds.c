@@ -94,10 +94,10 @@ int main()
             {
                printf("%d %d %d %10.3e %10.3e %10.3e %10.3e %10.3e %10.3e\n",
                      i, j, k, ilow, jlow, klow, iup, jup, kup);
+               ++nvar;
                if(dir==0)fprintf(fpt,"x%d  %e  %e  0.0\n", nvar, ilow, iup);
                if(dir==1)fprintf(fpt,"x%d  %e  %e  0.0\n", nvar, jlow, jup);
                if(dir==2)fprintf(fpt,"x%d  %e  %e  0.0\n", nvar, klow, kup);
-               ++nvar;
             }
          }
 
