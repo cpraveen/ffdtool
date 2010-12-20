@@ -3,6 +3,7 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 
 int main()
 {
@@ -11,19 +12,30 @@ int main()
    int nvar;
    int izero[1000], jzero[1000], kzero[1000];
    double ilow, jlow, klow, iup, jup, kup;
+   int dir;
+   FILE* fpt;
 
 
    printf("Enter idim, jdim, kdim: ");
    scanf("%d %d %d", &idim, &jdim, &kdim);
 
-   printf("Enter ilow, iup: ");
-   scanf("%lf %lf", &ilow, &iup);
+   printf("Enter direction (0,1,2): ");
+   scanf("%d", &dir);
+   assert(dir==0 || dir==1 || dir==2);
 
-   printf("Enter jlow, jup: ");
-   scanf("%lf %lf", &jlow, &jup);
-
-   printf("Enter klow, kup: ");
-   scanf("%lf %lf", &klow, &kup);
+   if(dir==0){
+      printf("Enter ilow, iup: ");
+      scanf("%lf %lf", &ilow, &iup);
+      jlow = jup = klow = kup = 0.0;
+   }else if(dir==1){
+      printf("Enter jlow, jup: ");
+      scanf("%lf %lf", &jlow, &jup);
+      ilow = iup = klow = kup = 0.0;
+   }else if(dir==2){
+      printf("Enter klow, kup: ");
+      scanf("%lf %lf", &klow, &kup);
+      ilow = iup = jlow = jup = 0.0;
+   }
 
    for(k=0; k<=kdim; k++)
        kzero[k] = 1;
@@ -68,6 +80,8 @@ int main()
 
    nvar = 0;
 
+   fpt = fopen("bounds.dat", "w");
+
    printf("%d %d %d\n\n", idim, jdim, kdim);
    for(k=0; k<=kdim; k++)
       for(j=0; j<=jdim; j++)
@@ -80,10 +94,15 @@ int main()
             {
                printf("%d %d %d %10.3e %10.3e %10.3e %10.3e %10.3e %10.3e\n",
                      i, j, k, ilow, jlow, klow, iup, jup, kup);
+               if(dir==0)fprintf(fpt,"x%d  %e  %e  0.0\n", nvar, ilow, iup);
+               if(dir==1)fprintf(fpt,"x%d  %e  %e  0.0\n", nvar, jlow, jup);
+               if(dir==2)fprintf(fpt,"x%d  %e  %e  0.0\n", nvar, klow, kup);
                ++nvar;
             }
          }
 
+   fclose(fpt);
 
    printf("Number of variables = %d\n", nvar);
+   printf("Bounds written into bounds.dat, use it in opt.in\n");
 }
