@@ -14,27 +14,25 @@ void WriteHyena(MESH *mesh){
 
    fpt = fopen(mesh->meshfile, "wb");
    if(fpt==NULL){
-      printf("ReadHyena: Could not open mesh file\n");
+      printf("WriteHyena: Could not open mesh file\n");
       exit(0);
    }
 
-   fwrite(&mesh->nblk, sizeof(int), 1, fpt);
+   fprintf(fpt, "%d\n", mesh->nblk);
 
    npx = npy = npz = 0;
 
    for(n=0; n<mesh->nblk; n++){ //loop over mesh blocks
 
-      fwrite(&mesh->idim[n], sizeof(int), 1, fpt);
-      fwrite(&mesh->jdim[n], sizeof(int), 1, fpt);
-      fwrite(&mesh->kdim[n], sizeof(int), 1, fpt);
+      fprintf(fpt, "%d %d %d\n", mesh->idim[n], mesh->jdim[n], mesh->kdim[n]);
 
       //read xyz coordinates
       for(k=0; k<mesh->kdim[n]; k++)
          for(j=0; j<mesh->jdim[n]; j++)
             for(i=0; i<mesh->idim[n]; i++){
-               fwrite(&mesh->x[npx++], sizeof(double), 1, fpt);
-               fwrite(&mesh->y[npy++], sizeof(double), 1, fpt);
-               fwrite(&mesh->z[npz++], sizeof(double), 1, fpt);
+               fprintf(fpt, "%24.14e %24.14e %24.14e\n", mesh->x[npx++],
+                                                         mesh->y[npy++],
+                                                         mesh->z[npz++]);
             }
 
    }
