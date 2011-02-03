@@ -50,24 +50,27 @@ void FFDCoord(REAL xp, REAL yp, REAL zp, FFD_BOX *box, UINT i, UINT j, UINT k,
    t[0] = t[1] = t[2] = 0.5;
 
    iter = 0;
-   res  = 1.0;
-   while(res > RESTOL && iter <= maxiter){//TODO: Conv criterion is good ???
+   fun[0] = fun[1] = fun[2] = 1.0e20;
+   while((fabs(fun[0]) > RESTOL*fabs(xp) || 
+          fabs(fun[1]) > RESTOL*fabs(yp) || 
+          fabs(fun[2]) > RESTOL*fabs(zp)) && 
+          iter <= maxiter){//TODO: Conv criterion is good ???
       rootFun(xp, yp, zp, x, y, z, t, fun);
-      res = sqrt(fun[0]*fun[0] + fun[1]*fun[1] + fun[2]*fun[2]);
       rootFunJac(x, y, z, t, jac);
       newton(fun, jac, t);
       iter++;
    }
 
    // check convergence
-   if(res > RESTOL){
+   if(iter==maxiter){
       printf("FFDCoord: Failed to converge :-(\n");
       exit(0);
    }
 
-   assert(t[0] >= 0.0);
-   assert(t[1] >= 0.0);
-   assert(t[2] >= 0.0);
+   // Check that ffd coordinates are inside [0,1]
+   assert(t[0] >= 0.0 && t[0] <= 1.0);
+   assert(t[1] >= 0.0 && t[1] <= 1.0);
+   assert(t[2] >= 0.0 && t[2] <= 1.0);
 
    // free memory
    DelRealArray2(3, jac);
