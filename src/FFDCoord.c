@@ -13,7 +13,7 @@ void FFDCoord(REAL xp, REAL yp, REAL zp, FFD_BOX *box, UINT i, UINT j, UINT k,
               REAL *t){
    REAL x[8], y[8], z[8];
    UINT iter, maxiter=100;
-   REAL res, fun[3], **jac;
+   REAL fun[3], **jac;
 
    void newton(REAL*, REAL**, REAL*);
 
