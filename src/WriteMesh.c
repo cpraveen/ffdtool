@@ -15,6 +15,8 @@ void WriteMesh(MESH *mesh, char *meshtype){
         WriteNum3sis(mesh);
     }else if(strcmp(meshtype,"hyena")==0){
         WriteHyena(mesh);
+    }else if(strcmp(meshtype,"visp3d")==0){
+        WriteVisp3d(mesh);
     }else{
        printf("WriteMesh: Dont know how to write this mesh !!!\n");
        exit(0);

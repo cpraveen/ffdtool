@@ -14,6 +14,8 @@ void ReadMesh(MESH *mesh, char *meshtype){
         ReadNum3sis(mesh);
     }else if(strcmp(meshtype,"hyena")==0){
         ReadHyena(mesh);
+    }else if(strcmp(meshtype,"visp3d")==0){
+        ReadVisp3d(mesh);
     }else{
         printf("ReadMesh: Unknown mesh type %s\n", meshtype);
         printf("          Valid types are:\n");
