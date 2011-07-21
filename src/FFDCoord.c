@@ -12,7 +12,7 @@
 void FFDCoord(REAL xp, REAL yp, REAL zp, FFD_BOX *box, UINT i, UINT j, UINT k,
               REAL *t){
    REAL x[8], y[8], z[8];
-   UINT iter, maxiter=100;
+   UINT iter, maxiter=100, n;
    REAL fun[3], **jac;
 
    void newton(REAL*, REAL**, REAL*);
@@ -68,6 +68,14 @@ void FFDCoord(REAL xp, REAL yp, REAL zp, FFD_BOX *box, UINT i, UINT j, UINT k,
    }
 
    // Check that ffd coordinates are inside [0,1]
+   for(n=0; n<3; ++n)
+      if(t[n] < 0.0 || t[n] > 1.0)
+      {
+         printf("FFDCoord: FFD coordinate out of range\n");
+         printf("xp yp zp = %e %e %e\n", xp, yp, zp);
+         printf("t[%d] = %e\n", n, t[n]);
+      }
+
    assert(t[0] >= 0.0 && t[0] <= 1.0);
    assert(t[1] >= 0.0 && t[1] <= 1.0);
    assert(t[2] >= 0.0 && t[2] <= 1.0);
