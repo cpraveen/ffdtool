@@ -51,16 +51,17 @@ void WingTwist(MESH *mesh, TWIST *twist){
             }
             t = (r1[0] + r1[1] + r1[2]) / (r2[0] + r2[1] + r2[2]);
 
-            assert(t <= 1.0);
+            assert(t <= 1.0 + 1e-14);
+            t = min(t,1.0);
 
             // center of rotation
             for(j=0; j<=2; j++)
                center[j] = twist->x[isec][j] + 
                            t * (twist->x[isec+1][j] - twist->x[isec][j]);
 
-            s     = d/d_x_sym[twist->num_sect];
+            s = d/d_x_sym[twist->num_sect];
          }
-         else{
+         else if(d > 0.0){
 
            // point "a" is beyond last section
            // find center by moving along axis of rotation
@@ -71,6 +72,13 @@ void WingTwist(MESH *mesh, TWIST *twist){
            s = 1.0;
 
          }
+         else
+         {
+            // Here d < 0. This arises if twist is not applied from the symmetry
+            // plane but from some other point on the span.
+            s = 0.0;
+         }
+
 
         theta = twist->theta[0] * (1.0 - s) + twist->theta[1] * s;
         point1 = RotAxis(center, twist->n, a, theta);

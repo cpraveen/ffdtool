@@ -12,7 +12,7 @@ int main(int argc, char *argv[]){
 
    if(argc < 3){
       printf("ffdtool: Specify <mesh type> and <filename>\n");
-      printf("         mesh type = plot3d or gmsh or num3sis\n");
+      printf("         mesh type = gmsh, plot3d, num3sis, hyena\n");
       printf("         optional: changeflags\n");
       exit(0);
    }
